@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 
-
 class AuthPage extends StatefulWidget {
   @override
   _AuthPageState createState() => _AuthPageState();
@@ -17,20 +16,35 @@ class _AuthPageState extends State<AuthPage> {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
+    final supabase = Supabase.instance.client;
+
     try {
       if (isLogin) {
-        await Supabase.instance.client.auth.signInWithPassword(
+        // User is logging in — no changes here
+        await supabase.auth.signInWithPassword(
           email: email,
           password: password,
         );
       } else {
-        await Supabase.instance.client.auth.signUp(
+        // User is signing up — insert user profile after sign-up
+        final result = await supabase.auth.signUp(
           email: email,
           password: password,
         );
+
+        final userId = result.user?.id;
+
+        if (userId != null) {
+          await supabase.from('profiles').insert({
+            'id': userId,
+            'username': email.split('@')[0], // Use part before @ as a username
+            'bio': '',
+            'avatar_url': '',
+          });
+        }
       }
 
-      setState(() {}); // Refresh UI
+      // No need to call setState — AuthGate listens to auth state changes
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(e.toString())),
