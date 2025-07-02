@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'user_profile_provider.dart';
+import 'edit_profile_page.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -36,6 +37,17 @@ class HomePage extends ConsumerWidget {
                 Text("📝 Bio: ${profile.bio.isEmpty ? 'No bio yet.' : profile.bio}"),
                 SizedBox(height: 10),
                 Text("🆔 ID: ${profile.id}"),
+
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => EditProfilePage()),
+                    );
+                  },
+                  icon: Icon(Icons.edit),
+                  label: Text("Edit Profile"), 
+                )
               ],
             ),
           );
