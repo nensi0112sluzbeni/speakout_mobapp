@@ -34,6 +34,19 @@ class HomePage extends ConsumerWidget {
               children: [
                 Text("👋 Welcome, ${profile.username}", style: TextStyle(fontSize: 20)),
                 SizedBox(height: 10),
+
+                if (profile.avatarUrl.isNotEmpty)
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage('${profile.avatarUrl}?v=${DateTime.now().millisecondsSinceEpoch}'),
+                  )
+                else
+                  CircleAvatar(
+                    radius: 40,
+                    child: Icon(Icons.person),
+                  ),
+                SizedBox(height: 20),
+        
                 Text("📝 Bio: ${profile.bio.isEmpty ? 'No bio yet.' : profile.bio}"),
                 SizedBox(height: 10),
                 Text("🆔 ID: ${profile.id}"),

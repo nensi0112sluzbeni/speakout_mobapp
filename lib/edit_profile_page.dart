@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'user_profile_provider.dart';
+import 'package:file_picker/file_picker.dart';
 
 class EditProfilePage extends ConsumerStatefulWidget {
   @override
@@ -51,6 +52,53 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
     }
   }
 
+  Future<void> uploadAvatar() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user == null) return;
+
+    // Let user pick an image file
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+      withData: true, // necessary for web
+    );
+
+    if (result == null || result.files.first.bytes == null) return;
+
+    final fileBytes = result.files.first.bytes!;
+    final fileName = '${user.id}.png';
+
+    try {
+      // Upload to Supabase Storage
+      await Supabase.instance.client.storage
+          .from('avatars')
+          .uploadBinary('public/$fileName', fileBytes, fileOptions: const FileOptions(
+            upsert: true, // overwrite if already exists
+          ));
+
+      // Get public URL
+      final imageUrl = Supabase.instance.client.storage
+          .from('avatars')
+          .getPublicUrl('public/$fileName');
+
+      // Save avatar URL to user's profile
+      await Supabase.instance.client
+          .from('profiles')
+          .update({'avatar_url': imageUrl})
+          .eq('id', user.id);
+
+      // Refresh Riverpod profile
+      ref.invalidate(userProfileProvider);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Avatar uploaded!")),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Upload failed: $e")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +121,11 @@ class _EditProfilePageState extends ConsumerState<EditProfilePage> {
             ElevatedButton(
               onPressed: saveProfile,
               child: Text('Save Changes'),
+            ),
+            ElevatedButton.icon(
+              onPressed: uploadAvatar,
+              icon: Icon(Icons.upload),
+              label: Text("Upload Avatar"),
             ),
           ],
         ),
