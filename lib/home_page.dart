@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'user_profile_provider.dart';
 import 'edit_profile_page.dart';
+import 'post_list_page.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -60,7 +61,18 @@ class HomePage extends ConsumerWidget {
                   },
                   icon: Icon(Icons.edit),
                   label: Text("Edit Profile"), 
-                )
+                ),
+
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => PostListPage()),
+                    );
+                  },
+                  icon: Icon(Icons.article),
+                  label: Text("View All Posts"),
+                ),
               ],
             ),
           );
