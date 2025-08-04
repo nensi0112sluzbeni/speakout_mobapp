@@ -5,8 +5,8 @@ import 'post.dart';
 final postsProvider = FutureProvider<List<Post>>((ref) async {
   final response = await Supabase.instance.client
       .from('posts')
-      .select()
+      .select('id, title, content, created_at, user_id, profiles(username)')
       .order('created_at', ascending: false);
 
-  return (response as List).map((post) => Post.fromMap(post)).toList();
+  return (response as List).map((row) => Post.fromMap(row)).toList();
 });

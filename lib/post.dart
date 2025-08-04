@@ -4,6 +4,7 @@ class Post {
   final String title;
   final String content;
   final DateTime createdAt;
+  final String? username;
 
   Post({
     required this.id,
@@ -11,6 +12,7 @@ class Post {
     required this.title,
     required this.content,
     required this.createdAt,
+    this.username,
   });
 
   factory Post.fromMap(Map<String, dynamic> map) {
@@ -20,6 +22,7 @@ class Post {
       title: map['title'] ?? '',
       content: map['content'] ?? '',
       createdAt: DateTime.parse(map['created_at']),
+      username: map['profiles']?['username'],
     );
   }
 }

@@ -18,10 +18,18 @@ class PostListPage extends ConsumerWidget {
             final post = posts[index];
             return ListTile(
               title: Text(post.title),
-              subtitle: Text(
-                post.content.length > 60
-                  ? '${post.content.substring(0, 60)}...'
-                  : post.content,
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (post.username != null)
+                    Text('@${post.username}', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                  SizedBox(height: 4),
+                  Text(
+                    post.content.length > 60
+                        ? '${post.content.substring(0, 60)}...'
+                        : post.content,
+                  ),
+                ],
               ),
               trailing: Text(
                 '${post.createdAt.day}/${post.createdAt.month}',
@@ -30,9 +38,7 @@ class PostListPage extends ConsumerWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => EditPostPage(post: post),
-                  ),
+                  MaterialPageRoute(builder: (_) => EditPostPage(post: post)),
                 );
               },
             );
