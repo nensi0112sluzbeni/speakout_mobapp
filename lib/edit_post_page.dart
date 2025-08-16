@@ -42,7 +42,6 @@ class _EditPostPageState extends ConsumerState<EditPostPage> {
           })
           .eq('id', widget.post.id);
 
-      ref.invalidate(postsProvider);
 
       if (mounted) Navigator.pop(context);
     } catch (e) {
@@ -75,7 +74,6 @@ class _EditPostPageState extends ConsumerState<EditPostPage> {
           .delete()
           .eq('id', widget.post.id);
 
-      ref.invalidate(postsProvider);
 
       if (mounted) Navigator.pop(context);
     } catch (e) {

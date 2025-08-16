@@ -22,7 +22,7 @@ class Post {
       title: map['title'] ?? '',
       content: map['content'] ?? '',
       createdAt: DateTime.parse(map['created_at']),
-      username: map['profiles']?['username'],
+      username: map['username'],
     );
   }
 }

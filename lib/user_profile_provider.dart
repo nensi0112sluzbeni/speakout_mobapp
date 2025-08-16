@@ -11,7 +11,9 @@ final userProfileProvider = FutureProvider<UserProfile?>((ref) async {
       .from('profiles')
       .select()
       .eq('id', user.id)
-      .single(); // only one row expected
+      .maybeSingle(); // ✅ changed from .single() to .maybeSingle()
+
+  if (response == null) return null; // No profile yet
 
   return UserProfile.fromMap(response);
 });

@@ -7,7 +7,7 @@ import 'edit_post_page.dart';
 class PostListPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final postsAsync = ref.watch(postsProvider);
+    final postsAsync = ref.watch(realtimePostsProvider);
 
     return Scaffold(
       appBar: AppBar(title: Text('All Posts')),

@@ -23,14 +23,22 @@ class _NewPostPageState extends ConsumerState<NewPostPage> {
     setState(() => isLoading = true);
 
     try {
+      // 👇 Fetch the current user's username from 'profiles'
+      final profileResponse = await Supabase.instance.client
+          .from('profiles')
+          .select('username')
+          .eq('id', user.id)
+          .maybeSingle();
+
+      final username = profileResponse?['username'] ?? 'unknown';
+
+      // 👇 Insert the post with username included
       await Supabase.instance.client.from('posts').insert({
         'user_id': user.id,
         'title': title,
         'content': content,
+        'username': username, // ✅ include username
       });
-
-      // Refresh post list
-      ref.invalidate(postsProvider);
 
       if (mounted) Navigator.pop(context); // Go back to post list
     } catch (e) {
