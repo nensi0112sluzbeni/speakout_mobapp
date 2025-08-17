@@ -13,3 +13,22 @@ final realtimePostsProvider = StreamProvider<List<Post>>((ref) {
   return stream.map((rows) =>
       rows.map((row) => Post.fromMap(row)).toList());
 });
+
+
+final myPostsProvider = StreamProvider<List<Post>>((ref) {
+  final user = Supabase.instance.client.auth.currentUser;
+
+  if (user == null) {
+    // Return empty stream if not logged in
+    return const Stream.empty();
+  }
+
+  final stream = Supabase.instance.client
+      .from('posts')
+      .stream(primaryKey: ['id'])
+      .eq('user_id', user.id) // ✅ Filter by current user
+      .order('created_at', ascending: false);
+
+  return stream.map((rows) =>
+      rows.map((row) => Post.fromMap(row)).toList());
+});

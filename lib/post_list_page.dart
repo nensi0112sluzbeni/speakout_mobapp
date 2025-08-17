@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'post_provider.dart';
 import 'new_post_page.dart';
 import 'edit_post_page.dart';
+import 'my_posts_page.dart';
 
 class PostListPage extends ConsumerWidget {
   @override
@@ -10,7 +11,21 @@ class PostListPage extends ConsumerWidget {
     final postsAsync = ref.watch(realtimePostsProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text('All Posts')),
+      appBar: AppBar(
+        title: Text('All Posts'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.person),
+            tooltip: 'My Posts',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => MyPostsPage()),
+              );
+            },
+          ),
+        ],
+      ),
       body: postsAsync.when(
         data: (posts) => ListView.builder(
           itemCount: posts.length,
