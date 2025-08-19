@@ -3,7 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:async';
 
 import 'home_page.dart';
-import 'auth_page.dart';
+import '../features/auth/presentation/auth_page.dart';
 
 class AuthGate extends StatefulWidget {
   @override

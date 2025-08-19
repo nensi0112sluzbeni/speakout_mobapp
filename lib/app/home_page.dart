@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'user_profile_provider.dart';
-import 'edit_profile_page.dart';
-import 'post_list_page.dart';
+import '../features/profile/presentation/providers/user_profile_provider.dart';
+import '../features/profile/presentation/edit_profile_page.dart';
+import '../features/posts/presentation/post_list_page.dart';
 
 class HomePage extends ConsumerWidget {
   @override

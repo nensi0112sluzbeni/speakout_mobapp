@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'post_provider.dart';
+import 'providers/post_provider.dart';
 
 class NewPostPage extends ConsumerStatefulWidget {
   @override

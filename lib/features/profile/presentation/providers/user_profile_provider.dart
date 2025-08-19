@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'user_profile.dart';
+import '../models/user_profile.dart';
 
 final userProfileProvider = FutureProvider<UserProfile?>((ref) async {
   final user = Supabase.instance.client.auth.currentUser;

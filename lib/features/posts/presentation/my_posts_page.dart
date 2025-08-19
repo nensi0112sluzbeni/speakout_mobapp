@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'post_provider.dart';
+import 'providers/post_provider.dart';
 import 'edit_post_page.dart';
 
 class MyPostsPage extends ConsumerWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'post.dart';
-import 'post_provider.dart';
+import '../data/post.dart';
+import 'providers/post_provider.dart';
 
 class EditPostPage extends ConsumerStatefulWidget {
   final Post post;

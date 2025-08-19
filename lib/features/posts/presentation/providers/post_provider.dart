@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'post.dart';
+import '../../data/post.dart';
 
 final realtimePostsProvider = StreamProvider<List<Post>>((ref) {
   final supabase = Supabase.instance.client;
