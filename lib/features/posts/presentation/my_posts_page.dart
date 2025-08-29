@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'providers/post_provider.dart';
 import 'edit_post_page.dart';
+import 'package:go_router/go_router.dart';
 
 class MyPostsPage extends ConsumerWidget {
   @override
@@ -37,12 +38,7 @@ class MyPostsPage extends ConsumerWidget {
                       style: TextStyle(fontSize: 12),
                     ),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => EditPostPage(post: post),
-                        ),
-                      );
+                      context.push('/edit', extra: post);
                     },
                   );
                 },

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../features/profile/presentation/providers/user_profile_provider.dart';
 import '../features/profile/presentation/edit_profile_page.dart';
 import '../features/posts/presentation/post_list_page.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
   @override
@@ -54,10 +55,7 @@ class HomePage extends ConsumerWidget {
 
                 ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => EditProfilePage()),
-                    );
+                    context.push('/edit-profile');
                   },
                   icon: Icon(Icons.edit),
                   label: Text("Edit Profile"), 
@@ -65,10 +63,7 @@ class HomePage extends ConsumerWidget {
 
                 ElevatedButton.icon(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (_) => PostListPage()),
-                    );
+                    context.push('/posts');
                   },
                   icon: Icon(Icons.article),
                   label: Text("View All Posts"),

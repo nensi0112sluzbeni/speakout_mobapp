@@ -4,6 +4,7 @@ import 'providers/post_provider.dart';
 import 'new_post_page.dart';
 import 'edit_post_page.dart';
 import 'my_posts_page.dart';
+import 'package:go_router/go_router.dart';
 
 class PostListPage extends ConsumerWidget {
   @override
@@ -83,10 +84,7 @@ class PostListPage extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => NewPostPage()),
-          );
+          context.push('/new');
         },
         child: Icon(Icons.add),
         tooltip: 'New Post',
